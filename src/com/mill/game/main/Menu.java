@@ -2,6 +2,7 @@ package com.mill.game.main;
 
 import com.mill.game.main.enums.COLOR;
 import com.mill.game.main.enums.ID;
+import com.mill.game.main.enums.PHASE;
 import com.mill.game.main.enums.STATE;
 
 import java.awt.*;
@@ -53,14 +54,18 @@ public class Menu extends MouseAdapter {
             //player vs player
             if (Helpers.mouseOver(mx, my, 250, 250, 265, 64)) {
                 game.gameState = STATE.Game;
+                game.removeMouseListener(game.gamePlay);
                 for (int i = 0; i < 9; i++) {
                     handler.addObject(new Player(60, 150 + i * 35, ID.Player1, color_one));
                     handler.addObject(new Player(720, 150 + i * 35, ID.Player2, color_two));
                 }
+                game.gamePlay = new GamePlay(game, handler);
+                game.addMouseListener(game.gamePlay);
             }
             //player vs ai
             if (Helpers.mouseOver(mx, my, 250, 350, 265, 64)) {
                 game.gameState = STATE.Game;
+                game.removeMouseListener(game.gamePlay);
                 for (int i = 0; i < 9; i++) {
                     handler.addObject(new Player(60, 150 + i * 35, ID.Player1, color_one));
                     handler.addObject(new Player(720, 150 + i * 35, ai, color_two));

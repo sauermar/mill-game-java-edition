@@ -16,24 +16,31 @@ public class GamePlay extends MouseAdapter {
     private Board board;
     private InformationBox informationBox;
 
-    private PHASE beforeMillPhase;
-    private PHASE phase = PHASE.First;
-    private  List<Coordinates> boardRows;
-    private  List<Coordinates> boardColumns;
+    public PHASE phase;
+
     private final int radius = 15;
     private final int side = 10;
+
+    private PHASE beforeMillPhase;
+    private  List<Coordinates> boardRows;
+    private  List<Coordinates> boardColumns;
     private GameObject currentStone;
-    private int i, click = 0;
+    private int i = 0;
+    private int click = 0;
     private COLOR playerColor;
     private boolean isChosen = false;
 
-    public GamePlay(Game game, Handler handler, Board board, InformationBox informationBox){
+    public GamePlay(Game game, Handler handler){
         this.game = game;
         this.handler = handler;
-        this.board = board;
-        this.informationBox = informationBox;
+        board = game.board;
+        informationBox = game.informationBox;
         boardRows = board.getBoardRows();
         boardColumns = board.getBoardColumns();
+        phase = PHASE.First;
+            if (i < handler.countObjects()) {
+                currentStone = handler.getObject(i);
+            }
     }
 
     public void mousePressed(MouseEvent e){
@@ -59,6 +66,9 @@ public class GamePlay extends MouseAdapter {
                                 break;
                             }
                             i++;
+                            if (i < handler.countObjects()) {
+                                currentStone = handler.getObject(i);
+                            }
                             if (click == 18) {
                                 playerColor = GameLogic.changeColor(currentStone.getColor());
                                 phase = PHASE.Second;
@@ -117,6 +127,7 @@ public class GamePlay extends MouseAdapter {
                             informationBox.message = "Please select opponent's stone";
                         }else{
                             handler.removeObject(handler.getObject(index));
+                            currentStone = handler.getObject(i);
                             if (GameLogic.numberOfStones(handler, GameLogic.changeColor(currentStone.getColor())) == 2){
                                 informationBox.message = String.format("%s player won the game", currentStone.getColor().toString());
                                 phase = PHASE.End;
@@ -140,11 +151,10 @@ public class GamePlay extends MouseAdapter {
 
     public void render(Graphics g){
         if (phase == PHASE.First){
-            if (i < handler.countObjects()) {
-                currentStone = handler.getObject(i);
+
                 informationBox.message = String.format("Place the %s stone", currentStone.getColor().toString());
                 Helpers.paintOvalFocus((Graphics2D) g, 5, currentStone.getX(), currentStone.getY(), radius);
-            }
+
         }else if (phase == PHASE.Second){
             if (isChosen){
                 Helpers.paintOvalFocus((Graphics2D) g, 5, currentStone.getX(), currentStone.getY(), radius);

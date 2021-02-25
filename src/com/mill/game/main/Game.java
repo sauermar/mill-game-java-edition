@@ -14,24 +14,23 @@ public class Game extends Canvas implements Runnable {
     private Thread thread;
     private boolean running = false;
 
+    public Board board;
+    public InformationBox informationBox;
+    public GamePlay gamePlay;
+
     private Handler handler;
-    private Board board;
-    private InformationBox informationBox;
     private Menu menu;
-    private GamePlay gamePlay;
 
     public STATE gameState = STATE.Menu;
 
     public Game(){
         handler = new Handler();
-        menu = new Menu(this, handler);
         board = new Board();
         informationBox = new InformationBox("", 260, 580);
-        gamePlay = new GamePlay(this, handler, board, informationBox);
+        gamePlay = new GamePlay(this, handler);
+        menu = new Menu(this, handler);
 
-        this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(menu);
-        this.addMouseListener(gamePlay);
 
         new Window(WIDTH, HEIGHT, "Mill game", this);
     }
