@@ -1,24 +1,39 @@
 package com.mill.game.main;
 
+import com.mill.game.main.enums.COLOR;
+import com.mill.game.main.enums.ID;
+import com.mill.game.main.enums.STATE;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
     //16x9 ratio for the game window
-    public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+    public static final int WIDTH = 780, HEIGHT = 680;
     //main game thread
     private Thread thread;
     private boolean running = false;
 
     private Handler handler;
+    private Board board;
+    private InformationBox informationBox;
+    private Menu menu;
+    private GamePlay gamePlay;
+
+    public STATE gameState = STATE.Menu;
 
     public Game(){
-        new Window(WIDTH, HEIGHT, "Mill game", this);
-
         handler = new Handler();
+        menu = new Menu(this, handler);
+        board = new Board();
+        informationBox = new InformationBox("", 260, 580);
+        gamePlay = new GamePlay(this, handler, board, informationBox);
 
-        handler.addObject(new Player(100,100, ID.Player));
-        handler.addObject(new Player(200,200, ID.Player));
+        this.addKeyListener(new KeyInput(handler));
+        this.addMouseListener(menu);
+        this.addMouseListener(gamePlay);
+
+        new Window(WIDTH, HEIGHT, "Mill game", this);
     }
 
     public synchronized void start(){
@@ -63,7 +78,7 @@ public class Game extends Canvas implements Runnable {
 
             if (System.currentTimeMillis() - timer > 1000){
                 timer += 1000;
-                System.out.println("FPS: " + frames);
+               // System.out.println("FPS: " + frames);
                 frames = 0;
             }
         }
@@ -72,8 +87,13 @@ public class Game extends Canvas implements Runnable {
 
     private void tick(){
         handler.tick();
+
+        if (gameState == STATE.Menu){
+            menu.tick();
+        }
     }
 
+    ///buffer strategy
     private void render(){
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null){
@@ -83,10 +103,21 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.blue);
-        g.fillRect(0,0, WIDTH, HEIGHT);
+        if (gameState == STATE.Menu || gameState == STATE.Instructions || gameState == STATE.Play){
+            g.setColor(Color.black);
+            g.fillRect(0,0, WIDTH, HEIGHT);
+            menu.render(g);
+        }else if (gameState == STATE.Game){
+            g.setColor(new java.awt.Color(115, 204, 255, 57));
+            g.fillRect(0,0, WIDTH, HEIGHT);
+            menu.menuButtonRender(g);
+            informationBox.render(g);
+            board.renderBoard(g);
+            gamePlay.render(g);
+        }
 
         handler.render(g);
+
 
         g.dispose();
         bs.show();

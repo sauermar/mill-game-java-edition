@@ -1,17 +1,23 @@
 package com.mill.game.main;
 
+import com.mill.game.main.enums.COLOR;
+import com.mill.game.main.enums.ID;
+
+import javax.swing.*;
 import java.awt.*;
 
-public abstract class GameObject {
+public abstract class GameObject{
 
     protected int x, y;
     protected ID id;
     protected int velX, velY;
+    protected COLOR color;
 
-    public GameObject(int x, int y, ID id){
+    public GameObject(int x, int y, ID id, COLOR color){
         this.x = x;
         this.y = y;
         this.id = id;
+        this.color = color;
     }
 
     public abstract void tick();
@@ -55,6 +61,10 @@ public abstract class GameObject {
 
     public int getVelY(){
         return velY;
+    }
+
+    public COLOR getColor(){
+        return color;
     }
 
 }
