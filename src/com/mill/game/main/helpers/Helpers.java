@@ -1,9 +1,6 @@
-package com.mill.game.main;
-
-import com.mill.game.main.enums.COLOR;
+package com.mill.game.main.helpers;
 
 import java.awt.*;
-import java.util.List;
 
 public final class Helpers {
 

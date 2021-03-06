@@ -1,7 +1,7 @@
-package com.mill.game.main;
+package com.mill.game.main.helpers;
 
-import com.mill.game.main.Coordinates;
 import com.mill.game.main.Handler;
+import com.mill.game.main.models.Coordinates;
 import com.mill.game.main.enums.COLOR;
 
 import java.util.List;
@@ -88,5 +88,11 @@ public final class GameLogic {
             }
         }
         return false;
+    }
+
+    public static void copyHandledObjects(Handler oldHandler, Handler newHandler){
+        for (int i = 0; i < oldHandler.countObjects(); i++){
+            newHandler.addObject(oldHandler.getObject(i));
+        }
     }
 }

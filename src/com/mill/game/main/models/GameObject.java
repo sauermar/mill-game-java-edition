@@ -1,4 +1,4 @@
-package com.mill.game.main;
+package com.mill.game.main.models;
 
 import com.mill.game.main.enums.COLOR;
 import com.mill.game.main.enums.ID;

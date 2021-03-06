@@ -1,10 +1,14 @@
 package com.mill.game.main;
 
 import com.mill.game.main.enums.COLOR;
+import com.mill.game.main.enums.ID;
+import com.mill.game.main.models.Coordinates;
+import com.mill.game.main.models.GameObject;
 
 import java.awt.*;
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Handler {
 
@@ -64,6 +68,27 @@ public class Handler {
 
     public COLOR getColor(int i){
         return objects.get(i).getColor();
+    }
+
+    public COLOR getColorFromId(ID id){
+        for (int i = 0; i < objects.size(); i++) {
+            GameObject tempObject = objects.get(i);
+          if (tempObject.getId() == id){
+              return tempObject.getColor();
+          }
+        }
+        return null;
+    }
+
+    public List<GameObject> getObjectWithColor(COLOR color){
+        List<GameObject> colorObjects = new ArrayList<>();
+        for (int i = 0; i < objects.size(); i++){
+            GameObject tempObject = objects.get(i);
+            if (tempObject.getColor() == color){
+                colorObjects.add(tempObject);
+            }
+        }
+        return colorObjects;
     }
 
 }

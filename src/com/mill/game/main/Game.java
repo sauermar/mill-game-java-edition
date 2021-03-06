@@ -16,7 +16,7 @@ public class Game extends Canvas implements Runnable {
 
     public Board board;
     public InformationBox informationBox;
-    public GamePlay gamePlay;
+    public GamePlayBase gamePlay;
 
     private Handler handler;
     private Menu menu;

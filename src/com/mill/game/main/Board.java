@@ -1,5 +1,8 @@
 package com.mill.game.main;
 
+import com.mill.game.main.helpers.Helpers;
+import com.mill.game.main.models.Coordinates;
+
 import java.awt.*;
 import java.awt.Color;
 import java.util.List;
@@ -93,15 +96,15 @@ public class Board {
         Coordinates coordinates, nextCoordinates;
         for (int i = 1; i <= boardColumns.size(); i++ ) {
             coordinates = boardColumns.get(i - 1);
-            Helpers.drawCenteredCircle(g, coordinates.x, coordinates.y, radius );
+            Helpers.drawCenteredCircle(g, coordinates.getX(), coordinates.getY(), radius );
             if (i % 3 != 0) {
                 //draw column line
                 nextCoordinates = boardColumns.get(i);
-                g.drawLine(coordinates.x, coordinates.y, nextCoordinates.x, nextCoordinates.y);
+                g.drawLine(coordinates.getX(), coordinates.getY(), nextCoordinates.getX(), nextCoordinates.getY());
                 //draw row line
                 coordinates = boardRows.get(i - 1);
                 nextCoordinates = boardRows.get(i);
-                g.drawLine(coordinates.x, coordinates.y, nextCoordinates.x, nextCoordinates.y);
+                g.drawLine(coordinates.getX(), coordinates.getY(), nextCoordinates.getX(), nextCoordinates.getY());
             }
         }
     }

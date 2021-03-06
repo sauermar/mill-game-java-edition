@@ -1,9 +1,10 @@
 package com.mill.game.main;
 
+import com.mill.game.main.helpers.Helpers;
 import com.mill.game.main.enums.COLOR;
 import com.mill.game.main.enums.ID;
-import com.mill.game.main.enums.PHASE;
 import com.mill.game.main.enums.STATE;
+import com.mill.game.main.models.Player;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -70,6 +71,11 @@ public class Menu extends MouseAdapter {
                     handler.addObject(new Player(60, 150 + i * 35, ID.Player1, color_one));
                     handler.addObject(new Player(720, 150 + i * 35, ai, color_two));
                 }
+                if (ai == ID.Minimax) {
+                    game.gamePlay = new AiGamePlay(
+                            game, handler, new Minimax(new StoneCountEvaluation(), handler, game.board));
+                }
+                game.addMouseListener(game.gamePlay);
             }
             //back button for play
             if (Helpers.mouseOver(mx, my, 295, 520, 150, 54)) {
