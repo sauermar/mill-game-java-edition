@@ -1,5 +1,7 @@
 package com.mill.game.main;
 
+import com.mill.game.main.ai.AlphaBeta;
+import com.mill.game.main.ai.Minimax;
 import com.mill.game.main.helpers.Helpers;
 import com.mill.game.main.enums.COLOR;
 import com.mill.game.main.enums.ID;
@@ -72,8 +74,9 @@ public class Menu extends MouseAdapter {
                     handler.addObject(new Player(720, 150 + i * 35, ai, color_two));
                 }
                 if (ai == ID.Minimax) {
-                    game.gamePlay = new AiGamePlay(
-                            game, handler, new Minimax(new StoneCountEvaluation(), handler, game.board));
+                    game.gamePlay = new AiGamePlay(game, handler, new Minimax(new StoneCountEvaluation(), handler, game.board));
+                }else if (ai == ID.AlphaBeta){
+                    game.gamePlay = new AiGamePlay(game, handler, new AlphaBeta(new StoneCountEvaluation(), handler, game.board));
                 }
                 game.addMouseListener(game.gamePlay);
             }
