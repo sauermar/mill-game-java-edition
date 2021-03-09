@@ -1,7 +1,6 @@
 package com.mill.game.main;
 
-import com.mill.game.main.enums.COLOR;
-import com.mill.game.main.enums.ID;
+import com.mill.game.main.common.GamePlayBase;
 import com.mill.game.main.enums.STATE;
 
 import java.awt.*;

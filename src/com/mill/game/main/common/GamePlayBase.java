@@ -1,5 +1,8 @@
-package com.mill.game.main;
+package com.mill.game.main.common;
 
+import com.mill.game.main.Board;
+import com.mill.game.main.Handler;
+import com.mill.game.main.InformationBox;
 import com.mill.game.main.enums.COLOR;
 import com.mill.game.main.helpers.GameLogic;
 import com.mill.game.main.models.Coordinates;

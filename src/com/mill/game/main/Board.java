@@ -29,9 +29,9 @@ public class Board {
             new Coordinates(390,130),
             new Coordinates(390,180),
             //middle lower column
-            new Coordinates(390,500),
-            new Coordinates(390,450),
             new Coordinates(390,400),
+            new Coordinates(390,450),
+            new Coordinates(390,500),
             //right first column
             new Coordinates(470,180),
             new Coordinates(470,290),

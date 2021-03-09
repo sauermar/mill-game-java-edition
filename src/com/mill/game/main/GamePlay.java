@@ -1,5 +1,6 @@
 package com.mill.game.main;
 
+import com.mill.game.main.common.GamePlayBase;
 import com.mill.game.main.helpers.GameLogic;
 import com.mill.game.main.helpers.Helpers;
 import com.mill.game.main.enums.COLOR;
@@ -30,9 +31,7 @@ public class GamePlay extends GamePlayBase {
         this.game = game;
         phase = PHASE.First;
 
-        if (i < handler.countObjects()) {
-            currentStone = handler.getObject(i);
-        }
+       getAnotherStone();
     }
 
     public void mousePressed(MouseEvent e){
@@ -56,9 +55,7 @@ public class GamePlay extends GamePlayBase {
                                 break;
                             }
                             i++;
-                            if (i < handler.countObjects()) {
-                                currentStone = handler.getObject(i);
-                            }
+                            getAnotherStone();
                             if (click == 18) {
                                 playerColor = GameLogic.changeColor(currentStone.getColor());
                                 phase = PHASE.Second;
@@ -124,7 +121,7 @@ public class GamePlay extends GamePlayBase {
                             informationBox.changeMessage(informationBox.INVALID_CHOICE);
                         }else{
                             handler.removeObject(handler.getObject(index));
-                            currentStone = handler.getObject(i);
+                            getAnotherStone();
                             if (GameLogic.numberOfStones(handler, GameLogic.changeColor(currentStone.getColor())) == 2){
                                 informationBox.changeMessage(
                                         informationBox.gameWon(currentStone.getColor().toString())
@@ -151,7 +148,7 @@ public class GamePlay extends GamePlayBase {
     }
 
     public void render(Graphics g){
-        if (phase == PHASE.First){
+        if (phase == PHASE.First && currentStone != null){
                 informationBox.changeMessage(
                         informationBox.firstPhase(currentStone.getColor().toString())
                 );
@@ -170,6 +167,12 @@ public class GamePlay extends GamePlayBase {
         informationBox.changeMessage(
                 informationBox.millCreated(currentStone.getColor().toString())
         );
+    }
+
+    private void getAnotherStone(){
+        if (i < handler.countObjects()){
+            currentStone = handler.getObject(i);
+        }
     }
 
 

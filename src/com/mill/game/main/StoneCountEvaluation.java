@@ -3,6 +3,9 @@ package com.mill.game.main;
 import com.mill.game.main.helpers.GameLogic;
 import com.mill.game.main.enums.COLOR;
 import com.mill.game.main.interfaces.Heuristic;
+import com.mill.game.main.models.Coordinates;
+
+import java.util.List;
 
 public class StoneCountEvaluation implements Heuristic {
     /**
@@ -11,7 +14,12 @@ public class StoneCountEvaluation implements Heuristic {
      * @param color color of the player
      * @return number of stones on board
      */
-    public int evaluate(Handler handler, COLOR color){
-        return GameLogic.numberOfStones(handler, color);
+    public int evaluate(Handler handler, COLOR color, List<Coordinates> board){
+        int numberOfPlayerStones = GameLogic.numberOfStones(handler, color, board);
+        int numberOfOpponentsStones = GameLogic.numberOfStones(handler, GameLogic.changeColor(color), board);
+        if (numberOfOpponentsStones < numberOfPlayerStones){
+            return numberOfPlayerStones + 1;
+        }
+        return numberOfPlayerStones;
     }
 }

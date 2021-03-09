@@ -3,6 +3,7 @@ package com.mill.game.main.helpers;
 import com.mill.game.main.Handler;
 import com.mill.game.main.models.Coordinates;
 import com.mill.game.main.enums.COLOR;
+import com.mill.game.main.models.GameObject;
 
 import java.util.List;
 
@@ -50,6 +51,21 @@ public final class GameLogic {
         return null;
     }
 
+    public static int numberOfStones(Handler handler, COLOR playerColor, List<Coordinates> board){
+        int count = 0;
+        for(int i = 0; i < handler.countObjects(); i++) {
+            if (handler.getColor(i) == playerColor){
+                GameObject tempObject = handler.getObject(i);
+                for (Coordinates place : board){
+                    if (place.getX() == tempObject.getX() && place.getY() == tempObject.getY()){
+                        count++;
+                    }
+                }
+            }
+        }
+        return count;
+    }
+
     public static int numberOfStones(Handler handler, COLOR playerColor){
         int count = 0;
         for(int i = 0; i < handler.countObjects(); i++) {
@@ -65,12 +81,12 @@ public final class GameLogic {
         int r = boardRows.indexOf(oldCoordinates);
         int c = boardColumns.indexOf(oldCoordinates);
 
-        if (validation(boardRows, newCoordinates, r, 0,1, 2)){ return true; }
-        else if (validation(boardColumns, newCoordinates, c, 0,1, 2)){return true;}
+        if (validation(boardRows, newCoordinates, r, 0,1, 0)){ return true; }
+        else if (validation(boardColumns, newCoordinates, c, 0,1, 0)){return true;}
         else if (validation(boardRows, newCoordinates, r, 1,-1, 1)){return true;}
         else if (validation(boardColumns, newCoordinates, c, 1,-1, 1)){return true;}
-        else if (validation(boardRows, newCoordinates, r, 2,-1, -2)){return true;}
-        else if (validation(boardColumns, newCoordinates, c, 2,-1, -2)){return true;}
+        else if (validation(boardRows, newCoordinates, r, 2,-1, 0)){return true;}
+        else if (validation(boardColumns, newCoordinates, c, 2,-1, 0)){return true;}
 
         return false;
     }
@@ -82,9 +98,11 @@ public final class GameLogic {
                     boardPart.get(index + first).getY() == newCoordinates.getY()){
                 return true;
             }
-            if (boardPart.get(index + second).getX() == newCoordinates.getX() &&
-                    boardPart.get(index + second).getY() == newCoordinates.getY()){
-                return true;
+            if (second != 0) {
+                if (boardPart.get(index + second).getX() == newCoordinates.getX() &&
+                        boardPart.get(index + second).getY() == newCoordinates.getY()) {
+                    return true;
+                }
             }
         }
         return false;
