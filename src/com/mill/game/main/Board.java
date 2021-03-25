@@ -89,6 +89,10 @@ public class Board {
         return boardRows;
     }
 
+    /**
+     * Renders board by drawing circles and links them by lines.
+     * @param g application's graphics
+     */
     public void renderBoard(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setStroke(new BasicStroke(4));

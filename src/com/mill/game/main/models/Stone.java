@@ -6,19 +6,18 @@ import com.mill.game.main.enums.ID;
 
 import java.awt.*;
 
-public class Player extends GameObject {
+public class Stone extends GameObject {
 
     private static final int radius = 15;
 
-    public Player(int x, int y, ID id, COLOR color) {
+    public Stone(int x, int y, ID id, COLOR color) {
         super(x, y, id, color);
     }
 
-    public void tick() {
-        x += velX;
-        y += velY;
-    }
-
+    /**
+     * Renders stone by drawing a colored circle.
+     * @param g application's graphics
+     */
     public void render(Graphics g) {
         if (color == COLOR.White) {
             g.setColor(Color.white);

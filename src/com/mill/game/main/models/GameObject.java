@@ -10,7 +10,6 @@ public abstract class GameObject{
 
     protected int x, y;
     protected ID id;
-    protected int velX, velY;
     protected COLOR color;
 
     public GameObject(int x, int y, ID id, COLOR color){
@@ -20,49 +19,60 @@ public abstract class GameObject{
         this.color = color;
     }
 
-    public abstract void tick();
+    /**
+     * Renders game object.
+     * @param g application's graphics
+     */
     public abstract void render(Graphics g);
 
+    /**
+     * Updates the x coordinate.
+     * @param x new x coordinate
+     */
     public void setX(int x){
         this.x = x;
     }
 
+    /**
+     * @return the x coordinate
+     */
     public int getX(){
         return x;
     }
 
+    /**
+     * Updates the y coordinate.
+     * @param y new y coordinate
+     */
     public void setY(int y){
         this.y = y;
     }
 
+    /**
+     * @return the y coordinate
+     */
     public int getY(){
         return y;
     }
 
+    /**
+     * Updates id.
+     * @param id new id
+     */
     public void setId(ID id){
         this.id = id;
     }
 
+    /**
+     * @return id
+     */
     public ID getId(){
         return id;
     }
 
-    public void setVelX(int velX){
-        this.velX = velX;
-    }
-
-    public int getVelX(){
-        return velX;
-    }
-
-    public void setVelY(int velY){
-        this.velY = velY;
-    }
-
-    public int getVelY(){
-        return velY;
-    }
-
+    /**
+     * @return color
+     */
     public COLOR getColor(){
         return color;
     }

@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.util.List;
 
-public class GamePlayBase extends MouseAdapter {
+public abstract class GamePlayBase extends MouseAdapter {
     protected Handler handler;
     protected InformationBox informationBox;
     protected java.util.List<Coordinates> boardRows;
@@ -27,16 +27,16 @@ public class GamePlayBase extends MouseAdapter {
         boardColumns = board.getBoardColumns();
     }
 
-    public void render (Graphics g){
+    public abstract void render(Graphics g);
 
-    }
-
+    /**
+     * Tests whether a mill is created by positioning stone with given color to the given coordinates.
+     * @param coordinates coordinates of the tested stone
+     * @param color color of the tested stone
+     * @return true if the move of the stone with given color on coordinates creates a mill,false otherwise
+     */
     protected boolean isMill(Coordinates coordinates, COLOR color){
-        if (GameLogic.isMill(boardRows, coordinates, color, handler)){
-            return true;
-        }else if (GameLogic.isMill(boardColumns, coordinates, color, handler)){
-            return true;
-        }
-        return false;
+        return (GameLogic.isMill(boardRows, coordinates, color, handler) ||
+                GameLogic.isMill(boardColumns, coordinates, color, handler));
     }
 }

@@ -26,6 +26,14 @@ public class Minimax extends ArtificialPlayerBase implements ArtificialPlayer{
         aiColor = handler.getColorFromId(ID.Minimax);
     }
 
+    /**
+     * Returns the best next move determined by the minimax algorithm with alpha-beta pruning.
+     * If there are multiple best moves, it chooses one of them randomly.
+     * @param phase current game phase
+     * @param i index relevant only for the first game phase,
+     *          where it stands for the index of the current stone to be placed on board
+     * @return the best next move determined by the minimax algorithm with alpha-beta pruning
+     */
     public Move move(PHASE phase, int i){
         minimax(depth, aiColor, handler, i, phase);
         Integer max = -1;
@@ -49,6 +57,18 @@ public class Minimax extends ArtificialPlayerBase implements ArtificialPlayer{
         return equalMoves.get(0);
     }
 
+    /**
+     * The Minimax algorithm helps to find the best move, by working backwards from the end of the game.
+     * At each step it assumes that player A is trying to maximize the chances of A winning, while on
+     * the next turn player B is trying to minimize the chances of A winning.
+     * @param depth number of immersion the algorithm will do
+     * @param color color of the current player
+     * @param handler current handler with registered game objects
+     * @param i index relevant only for the first game phase,
+     *          where it stands for the index of the current stone to be placed on board
+     * @param phase current game phase
+     * @return static evaluation of the played moves
+     */
     private int minimax(int depth, COLOR color, Handler handler, int i, PHASE phase) {
         if (depth == 0) {
             int staticEvaluation = heuristic.evaluate(handler, aiColor, boardRows);

@@ -6,6 +6,13 @@ import java.awt.Dimension;
 
 public class Window extends Canvas{
 
+    /**
+     * Creates a JFrame application window with fixed size and title.
+     * @param width width of the window
+     * @param height height of the window
+     * @param title title of the window
+     * @param game application to be run in the window
+     */
     public Window(int width, int height, String title, Game game) {
         JFrame frame = new JFrame(title);
         ImageIcon img = new ImageIcon("./images/icon.png");

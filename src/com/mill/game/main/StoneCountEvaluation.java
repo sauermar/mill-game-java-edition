@@ -9,7 +9,7 @@ import java.util.List;
 
 public class StoneCountEvaluation implements Heuristic {
     /**
-     * Returns the number of stones currently on board of the player playing with color.
+     * Returns the number of player's stones currently on board.
      * @param handler game handler
      * @param color color of the player
      * @return number of stones on board

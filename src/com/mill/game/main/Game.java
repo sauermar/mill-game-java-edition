@@ -9,7 +9,7 @@ import java.awt.image.BufferStrategy;
 public class Game extends Canvas implements Runnable {
     //16x9 ratio for the game window
     public static final int WIDTH = 780, HEIGHT = 680;
-    //main game thread
+    //main application thread
     private Thread thread;
     private boolean running = false;
 
@@ -34,12 +34,18 @@ public class Game extends Canvas implements Runnable {
         new Window(WIDTH, HEIGHT, "Mill game", this);
     }
 
+    /**
+     * Starts the main application thread.
+     */
     public synchronized void start(){
         thread = new Thread(this);
         thread.start();
         running = true;
     }
 
+    /**
+     * Stops the main application thread.
+     */
     public synchronized void stop(){
         try{
             thread.join();
@@ -51,47 +57,37 @@ public class Game extends Canvas implements Runnable {
     }
 
     /**
-     * Game loop
+     * Main application loop. Takes care of rendering and stopping of the application.
      */
     public void run(){
-        long lastTime = System.nanoTime();
-        double amountOfTicks = 60.0;
-        double ns = 1000000000 / amountOfTicks;
-        double delta = 0;
-        long timer = System.currentTimeMillis();
-        int frames = 0;
-        long now;
+//        long timer = System.currentTimeMillis();
+//        int frames = 0;
         while (running){
-            now = System.nanoTime();
-            delta += (now - lastTime) / ns;
-            lastTime = now;
-            while (delta >= 1){
-                tick();
-                delta--;
-            }
             if (running){
                 render();
             }
-            frames++;
+//            frames++;
 
-            if (System.currentTimeMillis() - timer > 1000){
-                timer += 1000;
-               // System.out.println("FPS: " + frames);
-                frames = 0;
-            }
+//            if (System.currentTimeMillis() - timer > 1000){
+//                timer += 1000;
+//                System.out.println("FPS: " + frames);
+//                frames = 0;
+//            }
         }
         stop();
     }
 
-    private void tick(){
-        handler.tick();
-
-        if (gameState == STATE.Menu){
-            menu.tick();
-        }
+    /**
+     * Application's main method.
+     * @param args command line arguments
+     */
+    public static void main(String args[]){
+        new Game();
     }
 
-    ///buffer strategy
+    /**
+     * Application main render method, using buffer strategy with 3 buffers for rendering graphics.
+     */
     private void render(){
         BufferStrategy bs = this.getBufferStrategy();
         if (bs == null){
@@ -102,26 +98,37 @@ public class Game extends Canvas implements Runnable {
         Graphics g = bs.getDrawGraphics();
 
         if (gameState == STATE.Menu || gameState == STATE.Instructions || gameState == STATE.Play){
-            g.setColor(Color.black);
-            g.fillRect(0,0, WIDTH, HEIGHT);
-            menu.render(g);
+            renderMenuScreen(g);
         }else if (gameState == STATE.Game){
-            g.setColor(new java.awt.Color(115, 204, 255, 57));
-            g.fillRect(0,0, WIDTH, HEIGHT);
-            menu.menuButtonRender(g);
-            informationBox.render(g);
-            board.renderBoard(g);
-            gamePlay.render(g);
+            renderGameScreen(g);
         }
 
         handler.render(g);
-
 
         g.dispose();
         bs.show();
     }
 
-    public static void main(String args[]){
-        new Game();
+    /**
+     * Renders menu screen.
+     * @param g application's graphics
+     */
+    private void renderMenuScreen(Graphics g){
+        g.setColor(Color.black);
+        g.fillRect(0,0, WIDTH, HEIGHT);
+        menu.render(g);
+    }
+
+    /**
+     * Renders game screen.
+     * @param g application's graphics
+     */
+    private void renderGameScreen(Graphics g){
+        g.setColor(new java.awt.Color(115, 204, 255, 57));
+        g.fillRect(0,0, WIDTH, HEIGHT);
+        menu.menuButtonRender(g);
+        informationBox.render(g);
+        board.renderBoard(g);
+        gamePlay.render(g);
     }
 }
