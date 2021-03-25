@@ -42,7 +42,8 @@ public class AiGamePlay extends GamePlayBase {
         int my = e.getY();
 
         if (game.gameState == STATE.Game) {
-            if (Helpers.mouseOver(mx, my, 600, 5, 70, 20)) {
+            //menu button
+            if (Helpers.mouseOver(mx, my, 355, 5, 70, 20)) {
                 game.gameState = STATE.Menu;
                 handler.removeAll();
             }

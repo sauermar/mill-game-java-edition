@@ -39,7 +39,8 @@ public class GamePlay extends GamePlayBase {
         int my = e.getY();
 
         if (game.gameState == STATE.Game){
-            if (Helpers.mouseOver(mx, my, 600, 5 , 70, 20)){
+            //menu button
+            if (Helpers.mouseOver(mx, my, 355, 5 , 70, 20)){
                 game.gameState = STATE.Menu;
                 handler.removeAll();
             }
@@ -60,7 +61,7 @@ public class GamePlay extends GamePlayBase {
                                 playerColor = GameLogic.changeColor(currentStone.getColor());
                                 phase = PHASE.Second;
                                 informationBox.changeMessage(
-                                        informationBox.secondPhase(currentStone.getColor().toString())
+                                        informationBox.secondPhase(playerColor.toString())
                                 );
                             }
                         }
@@ -97,7 +98,7 @@ public class GamePlay extends GamePlayBase {
                                 playerColor = GameLogic.changeColor(playerColor);
                                 isChosen = false;
                                 informationBox.changeMessage(
-                                        informationBox.secondPhase(currentStone.getColor().toString())
+                                        informationBox.secondPhase(playerColor.toString())
                                 );
                                 if (isMill(coordinates, currentStone.getColor())){
                                     mill();

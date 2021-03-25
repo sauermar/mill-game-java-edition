@@ -19,7 +19,7 @@ public class InformationBox {
 
     public void render(Graphics g){
         g.setColor(Color.white);
-        g.fillRect(x - 20, y - 25, 350, 40);
+        g.fillRect(x - 20, y - 25, 380, 40);
         g.setColor(Color.black);
         g.drawString(message, x, y);
     }

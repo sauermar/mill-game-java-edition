@@ -25,7 +25,7 @@ public class Game extends Canvas implements Runnable {
     public Game(){
         handler = new Handler();
         board = new Board();
-        informationBox = new InformationBox("", 260, 580);
+        informationBox = new InformationBox("", 220, 580);
         gamePlay = new GamePlay(this, handler);
         menu = new Menu(this, handler);
 

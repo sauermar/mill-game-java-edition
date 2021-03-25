@@ -85,7 +85,7 @@ public class Menu extends MouseAdapter {
                 game.gameState = STATE.Menu;
             }
         }
-
+        //main menu
         else if (game.gameState == STATE.Menu) {
             //play button
             if (Helpers.mouseOver(mx, my, 270, 200, 200, 64)) {
@@ -171,7 +171,7 @@ public class Menu extends MouseAdapter {
                 g.drawString("Black", 170, 130);
             }
 
-            g.drawString("Ai: ", 400, 130);
+            g.drawString("AI: ", 400, 130);
             g.drawRect(450, 100, 170, 40);
             if (ai == ID.Minimax) {
                 g.drawString("Minimax", 470, 130);
@@ -183,7 +183,7 @@ public class Menu extends MouseAdapter {
             g.drawRect(250, 250, 265, 64);
             g.drawString("Player vs Player", 265, 290);
             g.drawRect(250, 350, 265, 64);
-            g.drawString("Player vs Ai", 290, 390);
+            g.drawString("Player vs AI", 290, 390);
 
             //back button
             g.drawRect(295, 520, 150, 54);
@@ -196,10 +196,10 @@ public class Menu extends MouseAdapter {
     public void menuButtonRender(Graphics g){
         g.setFont(fnt3);
         g.setColor(Color.white);
-        g.fillRect(600, 5 , 70, 20);
+        g.fillRect(355, 5 , 70, 20);
         g.setColor(Color.black);
-        g.drawRect(600, 5 , 70, 20);
-        g.drawString("Menu", 610, 20);
+        g.drawRect(355, 5 , 70, 20);
+        g.drawString("Menu", 368, 20);
     }
 
 }
